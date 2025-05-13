@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Te amo Abigail ❤️</title>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(to top, #ffd6e0, #fff0f5);
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .cloud {
+            position: absolute;
+            font-size: 100px;
+            color: rgba(255, 255, 255, 0.5);
+            animation: floatClouds linear infinite;
+        }
+
+        .cloud:nth-child(1) { top: 50px; left: -200px; animation-duration: 60s; }
+        .cloud:nth-child(2) { top: 150px; left: -400px; animation-duration: 90s; }
+        .cloud:nth-child(3) { top: 250px; left: -600px; animation-duration: 120s; }
+
+        @keyframes floatClouds {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(200vw); }
+        }
+
+        h1 {
+            color: #ff3e7f;
+            font-size: 2.5rem;
+            text-align: center;
+            position: absolute;
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+            overflow: hidden;
+            border-right: 3px solid rgba(255, 62, 127, 0.75);
+            width: 0;
+            animation: typing 4s steps(40, end) forwards, blink 0.8s step-end infinite alternate;
+        }
+
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        @keyframes blink {
+            0% { border-color: transparent; }
+            100% { border-color: rgba(255, 62, 127, 0.75); }
+        }
+
+        .envelope {
+            width: 200px;
+            height: 120px;
+            background: #ff4b6e;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            cursor: pointer;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            animation: bounce 2s infinite;
+            z-index: 5;
+        }
+
+        .envelope::before, .envelope::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-style: solid;
+        }
+
+        .envelope::before {
+            border-width: 60px 100px 0 100px;
+            border-color: #ff6f91 transparent transparent transparent;
+            top: 0;
+            left: 0;
+        }
+
+        .envelope::after {
+            border-width: 0 100px 60px 100px;
+            border-color: transparent transparent #ff6f91 transparent;
+            bottom: 0;
+            left: 0;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translate(-50%, -50%) translateY(0); }
+            50% { transform: translate(-50%, -50%) translateY(-10px); }
+        }
+
+        .letter {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            animation: slideUp 0.5s ease forwards;
+            z-index: 10;
+            text-align: center;
+            color: #ff3e7f;
+            font-size: 1.1rem;
+        }
+
+        @keyframes slideUp {
+            0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0; }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        }
+
+        .heart {
+            position: absolute;
+            color: #ff3e7f;
+            font-size: 30px;
+            animation: floatHearts 5s linear infinite;
+            opacity: 0;
+        }
+
+        @keyframes floatHearts {
+            0% { transform: translateY(0) scale(0.5); opacity: 1; }
+            100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
+        }
+
+        .surprise-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #ff4b6e;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: background 0.3s ease, transform 0.2s ease;
+            cursor: pointer;
+        }
+
+        .surprise-btn:hover {
+            background-color: #ff6f91;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Nubes -->
+    <i class="fas fa-cloud cloud"></i>
+    <i class="fas fa-cloud cloud"></i>
+    <i class="fas fa-cloud cloud"></i>
+
+    <!-- Título con animación bonita -->
+    <h1>Te amo Abigail ❤️ Gracias por estos 2 meses</h1>
+
+    <!-- Sobre centrado -->
+    <div class="envelope" id="envelope"></div>
+
+    <!-- Carta -->
+    <div class="letter" id="letter">
+        <p>Mi amor, estos dos meses a tu lado han sido los más hermosos.</p>
+        <p>Cada día contigo es un regalo que valoro con todo mi corazón.</p>
+        <p>Gracias por ser tú, por amarme, y por llenar mi vida de felicidad.</p>
+        <p>Te amo infinitamente ❤️.</p>
+
+        <!-- Botón sorpresa -->
+        <button class="surprise-btn" id="surpriseBtn">Otra sorpresa 💖</button>
+    </div>
+
+    <!-- Música de fondo -->
+    <audio id="backgroundMusic" autoplay loop>
+        <source src="Hasta el fin del mundo.mp3" type="audio/mpeg">
+        Tu navegador no soporta audio.
+    </audio>
+
+    <script>
+        const envelope = document.getElementById('envelope');
+        const letter = document.getElementById('letter');
+        const surpriseBtn = document.getElementById('surpriseBtn');
+
+        envelope.addEventListener('click', () => {
+            letter.style.display = 'block';
+            envelope.style.display = 'none';
+            generateHearts();
+        });
+
+        surpriseBtn.addEventListener('click', () => {
+            generateHearts();
+            downloadPDF();
+        });
+
+        function generateHearts() {
+            for (let i = 0; i < 30; i++) {
+                const heart = document.createElement('i');
+                heart.classList.add('fas', 'fa-heart', 'heart');
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                heart.style.fontSize = (Math.random() * 20 + 20) + 'px';
+                document.body.appendChild(heart);
+
+                setTimeout(() => {
+                    heart.remove();
+                }, 5000);
+            }
+        }
+
+        function downloadPDF() {
+            const link = document.createElement('a');
+            link.href = 'Carta_para_Abigail.pdf';
+            link.download = 'Carta_para_Abigail.pdf';
+            link.target = '_blank'; 
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        const backgroundMusic = document.getElementById('backgroundMusic');
+
+        function startMusic() {
+            backgroundMusic.play().catch(err => {
+                console.error('No se pudo reproducir la música:', err);
+            });
+
+            document.removeEventListener('click', startMusic);
+            document.removeEventListener('touchstart', startMusic);
+        }
+
+        document.addEventListener('click', startMusic);
+        document.addEventListener('touchstart', startMusic);
+    </script>
+
+</body>
+</html>
