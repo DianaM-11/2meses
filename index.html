@@ -177,67 +177,60 @@
         <button class="surprise-btn" id="surpriseBtn">Otra sorpresa 💖</button>
     </div>
 
-    <!-- Música de fondo -->
-    <audio id="backgroundMusic" autoplay loop>
-        <source src="Hasta el fin del mundo.mp3" type="audio/mpeg">
-        Tu navegador no soporta audio.
-    </audio>
+<!-- Música de fondo -->
+<audio id="backgroundMusic" loop>
+    <source src="Hasta el fin del mundo.mp3" type="audio/mpeg">
+    Tu navegador no soporta audio.
+</audio>
 
-    <script>
-        const envelope = document.getElementById('envelope');
-        const letter = document.getElementById('letter');
-        const surpriseBtn = document.getElementById('surpriseBtn');
+<script>
+    const envelope = document.getElementById('envelope');
+    const letter = document.getElementById('letter');
+    const surpriseBtn = document.getElementById('surpriseBtn');
+    const backgroundMusic = document.getElementById('backgroundMusic');
 
-        envelope.addEventListener('click', () => {
-            letter.style.display = 'block';
-            envelope.style.display = 'none';
-            generateHearts();
+    envelope.addEventListener('click', () => {
+        letter.style.display = 'block';
+        envelope.style.display = 'none';
+        generateHearts();
+
+        // Iniciar la música al tocar el sobre
+        backgroundMusic.play().catch(err => {
+            console.error('No se pudo reproducir la música:', err);
         });
+    });
 
-        surpriseBtn.addEventListener('click', () => {
-            generateHearts();
-            downloadPDF();
-        });
+    surpriseBtn.addEventListener('click', () => {
+        generateHearts();
+        downloadPDF();
+    });
 
-        function generateHearts() {
-            for (let i = 0; i < 30; i++) {
-                const heart = document.createElement('i');
-                heart.classList.add('fas', 'fa-heart', 'heart');
-                heart.style.left = Math.random() * 100 + 'vw';
-                heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
-                heart.style.fontSize = (Math.random() * 20 + 20) + 'px';
-                document.body.appendChild(heart);
+    function generateHearts() {
+        for (let i = 0; i < 30; i++) {
+            const heart = document.createElement('i');
+            heart.classList.add('fas', 'fa-heart', 'heart');
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            heart.style.fontSize = (Math.random() * 20 + 20) + 'px';
+            document.body.appendChild(heart);
 
-                setTimeout(() => {
-                    heart.remove();
-                }, 5000);
-            }
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
         }
+    }
 
-        function downloadPDF() {
-            const link = document.createElement('a');
-            link.href = 'Carta_para_Abigail.pdf';
-            link.download = 'Carta_para_Abigail.pdf';
-            link.target = '_blank'; 
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        }
+    function downloadPDF() {
+        const link = document.createElement('a');
+        link.href = 'Carta_para_Abigail.pdf';
+        link.download = 'Carta_para_Abigail.pdf';
+        link.target = '_blank'; // Abre en otra pestaña
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+</script>
 
-        const backgroundMusic = document.getElementById('backgroundMusic');
-
-        function startMusic() {
-            backgroundMusic.play().catch(err => {
-                console.error('No se pudo reproducir la música:', err);
-            });
-
-            document.removeEventListener('click', startMusic);
-            document.removeEventListener('touchstart', startMusic);
-        }
-
-        document.addEventListener('click', startMusic);
-        document.addEventListener('touchstart', startMusic);
-    </script>
 
 </body>
 </html>
